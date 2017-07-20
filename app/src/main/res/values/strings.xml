@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Rak3ah</string>
+    <array name="Prayers">
+        <item>Choose a Prayer</item>
+        <item>Fajr</item>
+        <item>Dhuhr</item>
+        <item>Asr</item>
+        <item>Maghrib</item>
+        <item>Ishaa</item>
+    </array>
+
+</resources>
