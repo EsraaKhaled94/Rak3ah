@@ -11,6 +11,7 @@ import android.hardware.SensorManager;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,9 +34,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        currentPrayer = getIntent().getExtras().getString("PRAYER_NAME");
-        currentPrayerPosition= getIntent().getExtras().getInt("PRAYER_POSITION");
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        try {
+            currentPrayer = getIntent().getExtras().getString("PRAYER_NAME");
+            currentPrayerPosition = getIntent().getExtras().getInt("PRAYER_POSITION");
+        }
+        catch (Exception e){
+            Toast.makeText(this, "Something went wrong!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
         rak3ahNumberTextView = (TextView) findViewById(R.id.counter);
         prayerNameTextView = (TextView) findViewById(R.id.prayer_name);
 
@@ -71,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     }
                     else if (rak3ahNumber==3){
                         if (currentPrayerPosition==1){
+                            manager.unregisterListener(this);
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -90,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     }
                     else if (rak3ahNumber==4){
                         if (currentPrayerPosition==4){
+                            manager.unregisterListener(this);
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
@@ -108,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         }
                     }
                     else {
+                        manager.unregisterListener(this);
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
